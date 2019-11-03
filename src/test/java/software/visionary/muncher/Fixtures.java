@@ -11,19 +11,28 @@ final class Fixtures {
     private Fixtures() {};
 
     static Meal createMealFromXDaysAgo(int daysAgo) {
-        return new InMemoryMeal(Instant.now().minus(daysAgo, ChronoUnit.DAYS));
+        final Instant startTime = Instant.now().minus(daysAgo, ChronoUnit.DAYS);
+        final Instant endTime = startTime.plus(1, ChronoUnit.HOURS);
+        return new InMemoryMeal(startTime, endTime);
     }
 
     private static final class InMemoryMeal implements Meal {
         private final Instant startTime;
+        private final Instant endTime;
 
-        private InMemoryMeal(final Instant startTime) {
+        private InMemoryMeal(final Instant startTime, final Instant endTime) {
             this.startTime = Objects.requireNonNull(startTime);
+            this.endTime = Objects.requireNonNull(endTime);
         }
 
         @Override
         public Instant getStartedAt() {
             return startTime;
+        }
+
+        @Override
+        public Instant getEndedAt() {
+            return endTime;
         }
     }
 

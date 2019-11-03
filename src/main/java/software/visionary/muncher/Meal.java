@@ -4,4 +4,5 @@ import java.time.Instant;
 
 public interface Meal {
     Instant getStartedAt();
+    Instant getEndedAt();
 }
