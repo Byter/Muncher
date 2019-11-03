@@ -5,4 +5,6 @@ import java.util.function.Consumer;
 public interface Muncher {
     void eat(Food food);
     void ask(Consumer<Food> question);
+    void log(Meal meal);
+    void query(Consumer<Meal> query);
 }
