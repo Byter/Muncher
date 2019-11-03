@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class QueryForMealsForATimeRange {
+final class QueryForMealsForATimeRange {
     @Test
     void canQueryMuncherForMealsWithinTheLastWeek() {
         // Given: A Muncher

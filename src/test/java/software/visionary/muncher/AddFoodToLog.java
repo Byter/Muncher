@@ -3,7 +3,7 @@ package software.visionary.muncher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class AddFoodToLog {
+final class AddFoodToLog {
     @Test
     void canConsumeFood() {
         // Given: the existence of a muncher
