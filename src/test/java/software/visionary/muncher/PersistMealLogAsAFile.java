@@ -135,6 +135,17 @@ final class PersistMealLogAsAFile {
             public Instant getEndedAt() {
                 return end;
             }
+
+            @Override
+            public Foods getFoods() {
+                // TODO: make Foods serializable and flesh this out
+                return null;
+            }
+
+            @Override
+            public void add(Food food) {
+                // TODO: make Foods serializable and flesh this out
+            }
         }
     }
 

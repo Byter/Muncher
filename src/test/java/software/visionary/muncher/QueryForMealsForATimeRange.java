@@ -2,13 +2,6 @@ package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -73,51 +66,4 @@ final class QueryForMealsForATimeRange {
         assertTrue(query.contains(first));
     }
 
-    private static final class MealsFromOneWeekAgoToNow implements Consumer<Meal> {
-        private final List<Meal> found;
-        private final Instant oneWeekAgo;
-
-        MealsFromOneWeekAgoToNow() {
-            found = new ArrayList<>();
-            oneWeekAgo = Instant.now().minus(7, ChronoUnit.DAYS);
-        }
-
-        @Override
-        public void accept(final Meal meal) {
-            if (oneWeekAgo.isBefore(meal.getStartedAt())) {
-                found.add(meal);
-            }
-        }
-
-        boolean contains(final Meal sought) {
-            return found.contains(sought);
-        }
-    }
-
-    private static final class MealsWithinTimeRange implements Consumer<Meal> {
-        private final List<Meal> found;
-        private final Instant start;
-        private final Instant end;
-
-        MealsWithinTimeRange(final Instant start, final Instant end) {
-            found = new ArrayList<>();
-            this.start = Objects.requireNonNull(start);
-            this.end = Objects.requireNonNull(end);
-        }
-
-        private static MealsWithinTimeRange mealsEatenLastWeek() {
-            return new MealsWithinTimeRange(Instant.now().minus(15, ChronoUnit.DAYS), Instant.now().minus(7, ChronoUnit.DAYS));
-        }
-
-        @Override
-        public void accept(final Meal meal) {
-            if (start.isBefore(meal.getStartedAt()) && end.isAfter(meal.getEndedAt())) {
-                found.add(meal);
-            }
-        }
-
-        boolean contains(final Meal sought) {
-            return found.contains(sought);
-        }
-    }
 }
