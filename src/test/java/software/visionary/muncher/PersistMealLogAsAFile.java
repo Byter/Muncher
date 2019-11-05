@@ -43,7 +43,7 @@ final class PersistMealLogAsAFile {
         mom.log(fourth);
         // When: I query the Muncher for all Meals stored
         final VerifyMealsStored verifier = new VerifyMealsStored();
-        mom.query(verifier);
+        mom.recollect(verifier);
         // Then: every meal logged should be stored
         Assertions.assertTrue(verifier.hasMeal(first));
         Assertions.assertTrue(verifier.hasMeal(second));
@@ -74,7 +74,7 @@ final class PersistMealLogAsAFile {
         public synchronized void log(final Meal meal) {
             final File stored = getFileToSaveAs();
             final VerifyMealsStored previouslyStored = new VerifyMealsStored();
-            query(previouslyStored);
+            recollect(previouslyStored);
             try(final ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(stored));) {
                 for (final Meal storeAgain : previouslyStored.getStoredMeals()) {
                     os.writeObject(new SerializedMeal(storeAgain));
@@ -98,7 +98,7 @@ final class PersistMealLogAsAFile {
         }
 
         @Override
-        public void query(final Consumer<Meal> query) {
+        public void recollect(final Consumer<Meal> query) {
             final List<Meal> saved = new ArrayList<>();
             final File stored = getFileToSaveAs();
             if (stored.length() != 0) {

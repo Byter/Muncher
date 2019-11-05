@@ -88,7 +88,7 @@ final class Fixtures {
         public void eat(Food food) {
             final Instant oneHourAgo = Instant.now().minus(1, ChronoUnit.HOURS);
             final MealsWithinTimeRange anyThingEaten = new MealsWithinTimeRange(oneHourAgo, Instant.now());
-            query(anyThingEaten);
+            recollect(anyThingEaten);
             anyThingEaten.mostRecent()
                     .ifPresentOrElse(meal -> meal.add(food), () -> log(InMemoryMeal.fromFood(food)));
         }
@@ -106,7 +106,7 @@ final class Fixtures {
         }
 
         @Override
-        public void query(Consumer<Meal> query) {
+        public void recollect(Consumer<Meal> query) {
             consumed.forEach(query::accept);
         }
     }

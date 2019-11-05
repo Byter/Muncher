@@ -21,7 +21,7 @@ final class EatingFoodsLeadsToLoggingAMeal {
         // And: I ask the muncher about the Meals they've had
         final MealsContainingFood query = new MealsContainingFood(boneBroth);
         // When: I query
-        nick.query(query);
+        nick.recollect(query);
         // Then: the meal is found
         assertTrue(query.foundMealFromFood());
     }
