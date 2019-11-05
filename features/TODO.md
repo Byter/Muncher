@@ -25,6 +25,7 @@ of medians, I want to be able to simply calculate summary statistics.</p>
 to use it to improve someone's health.</p>
 
 <h2>User Stories</h2>
+<p>As a user, because retrospectively adding food to my meals is tedious, I want to be able to eat and have that Food counted as a Meal</p>
 <p>As a patient, because I value my privacy, I want my information to be encrypted and viewable only by me and trusted contacts</p>
 <p>As a software engineer, because I want to use Meals in my third-party app integrations, I want an API I can use to
 retrieve Meals</p>
