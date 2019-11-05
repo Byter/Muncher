@@ -75,7 +75,7 @@ final class PersistMealLogAsAFile {
             final File stored = getFileToSaveAs();
             final VerifyMealsStored previouslyStored = new VerifyMealsStored();
             recollect(previouslyStored);
-            try(final ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(stored));) {
+            try(final ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(stored))) {
                 for (final Meal storeAgain : previouslyStored.getStoredMeals()) {
                     os.writeObject(new SerializedMeal(storeAgain));
                 }
@@ -111,7 +111,7 @@ final class PersistMealLogAsAFile {
                             break; // we've read all the objects. what a shitty API.
                         }
                     }
-                } catch (IOException | ClassNotFoundException e) {
+                } catch (final IOException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -152,7 +152,7 @@ final class PersistMealLogAsAFile {
         }
 
         @Override
-        public void accept(Meal meal) {
+        public void accept(final Meal meal) {
             stored.add(meal);
         }
 

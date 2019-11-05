@@ -9,9 +9,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 final class Fixtures {
-    private Fixtures() {};
+    private Fixtures() {}
 
-    static Meal createMealFromXDaysAgo(int daysAgo) {
+    static Meal createMealFromXDaysAgo(final int daysAgo) {
         final Instant startTime = Instant.now().minus(daysAgo, ChronoUnit.DAYS);
         final Instant endTime = startTime.plus(1, ChronoUnit.HOURS);
         return new InMemoryMeal(startTime, endTime);
@@ -25,12 +25,12 @@ final class Fixtures {
         }
 
         @Override
-        public boolean has(Food food) {
+        public boolean has(final Food food) {
             return foods.contains(food);
         }
 
         @Override
-        public void add(Food food) {
+        public void add(final Food food) {
             foods.add(Objects.requireNonNull(food));
         }
 
@@ -51,7 +51,7 @@ final class Fixtures {
             this.foods = new InMemoryFoods();
         }
 
-        static Meal fromFood(Food food) {
+        static Meal fromFood(final Food food) {
             final InMemoryMeal newMeal = new InMemoryMeal(Instant.now(), Instant.now());
             newMeal.add(food);
             return newMeal;
@@ -73,7 +73,7 @@ final class Fixtures {
         }
 
         @Override
-        public void add(Food food) {
+        public void add(final Food food) {
             foods.add(Objects.requireNonNull(food));
         }
     }
@@ -85,7 +85,7 @@ final class Fixtures {
         }
 
         @Override
-        public void eat(Food food) {
+        public void eat(final Food food) {
             final Instant oneHourAgo = Instant.now().minus(1, ChronoUnit.HOURS);
             final MealsWithinTimeRange anyThingEaten = new MealsWithinTimeRange(oneHourAgo, Instant.now());
             recollect(anyThingEaten);
@@ -94,19 +94,19 @@ final class Fixtures {
         }
 
         @Override
-        public void ask(Consumer<Food> question) {
+        public void ask(final Consumer<Food> question) {
             consumed.stream()
             .map(Meal::getFoods)
             .forEach(foods -> foods.forEach(question));
         }
 
         @Override
-        public void log(Meal meal) {
+        public void log(final Meal meal) {
             consumed.add(Objects.requireNonNull(meal));
         }
 
         @Override
-        public void recollect(Consumer<Meal> query) {
+        public void recollect(final Consumer<Meal> query) {
             consumed.forEach(query::accept);
         }
     }

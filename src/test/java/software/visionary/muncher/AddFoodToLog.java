@@ -32,11 +32,11 @@ final class AddFoodToLog {
         }
 
         @Override
-        public void accept(Food food) {
+        public void accept(final Food food) {
             consumed.add(Objects.requireNonNull(food));
         }
 
-        boolean hasEaten(Food food) {
+        boolean hasEaten(final Food food) {
             return consumed.contains(food);
         }
     }
