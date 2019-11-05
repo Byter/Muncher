@@ -141,11 +141,6 @@ final class PersistMealLogAsAFile {
                 // TODO: make Foods serializable and flesh this out
                 return null;
             }
-
-            @Override
-            public void add(Food food) {
-                // TODO: make Foods serializable and flesh this out
-            }
         }
     }
 

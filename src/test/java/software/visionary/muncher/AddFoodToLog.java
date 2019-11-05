@@ -3,6 +3,11 @@ package software.visionary.muncher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
 final class AddFoodToLog {
     @Test
     void canConsumeFood() {
@@ -13,9 +18,26 @@ final class AddFoodToLog {
         // When: the muncher eats the food
         nick.eat(boneBroth);
         // And: I ask the muncher about the food they've eaten
-        final Fixtures.WhatDidYouEat question = Fixtures.createFoodQuestion();
+        final WhatDidYouEat question = new WhatDidYouEat();
         nick.ask(question);
         // Then: the answer contains the food
         Assertions.assertTrue(question.hasEaten(boneBroth));
+    }
+
+    static final class WhatDidYouEat implements Consumer<Food> {
+        private final List<Food> consumed;
+
+        WhatDidYouEat() {
+            consumed = new ArrayList<>();
+        }
+
+        @Override
+        public void accept(Food food) {
+            consumed.add(Objects.requireNonNull(food));
+        }
+
+        boolean hasEaten(Food food) {
+            return consumed.contains(food);
+        }
     }
 }

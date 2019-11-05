@@ -17,7 +17,7 @@ final class Fixtures {
         return new InMemoryMeal(startTime, endTime);
     }
 
-    static final class InMemoryFoods implements Foods {
+    static final class InMemoryFoods implements MutableFoods {
         private final List<Food> foods;
 
         InMemoryFoods() {
@@ -40,10 +40,10 @@ final class Fixtures {
         }
     }
 
-    private static final class InMemoryMeal implements Meal {
+    private static final class InMemoryMeal implements MutableMeal {
         private final Instant startTime;
         private final Instant endTime;
-        private final Foods foods;
+        private final MutableFoods foods;
 
         private InMemoryMeal(final Instant startTime, final Instant endTime) {
             this.startTime = Objects.requireNonNull(startTime);
@@ -90,7 +90,7 @@ final class Fixtures {
             final MealsWithinTimeRange anyThingEaten = new MealsWithinTimeRange(oneHourAgo, Instant.now());
             recollect(anyThingEaten);
             anyThingEaten.mostRecent()
-                    .ifPresentOrElse(meal -> meal.add(food), () -> log(InMemoryMeal.fromFood(food)));
+                    .ifPresentOrElse(meal -> ((MutableMeal) meal).add(food), () -> log(InMemoryMeal.fromFood(food)));
         }
 
         @Override
@@ -121,26 +121,5 @@ final class Fixtures {
 
     static Food createBoneBroth() {
         return new BoneBroth();
-    }
-
-    static final class WhatDidYouEat implements Consumer<Food> {
-        private final List<Food> consumed;
-
-        WhatDidYouEat() {
-            consumed = new ArrayList<>();
-        }
-
-        @Override
-        public void accept(Food food) {
-            consumed.add(Objects.requireNonNull(food));
-        }
-
-        boolean hasEaten(Food food) {
-            return consumed.contains(food);
-        }
-    }
-
-    static WhatDidYouEat createFoodQuestion() {
-        return new WhatDidYouEat();
     }
 }
