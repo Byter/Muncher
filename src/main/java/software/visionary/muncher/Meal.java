@@ -1,10 +1,6 @@
 package software.visionary.muncher;
 
-import java.time.Instant;
-
-public interface Meal {
-    Instant getStartedAt();
-    Instant getEndedAt();
+public interface Meal extends Event {
     Foods getFoods();
     void add(Food food);
 }
