@@ -7,7 +7,7 @@ final class AddFoodToLog {
     @Test
     void canConsumeFood() {
         // Given: the existence of a muncher
-        final Muncher nick = Fixtures.createMuncher();
+        final Eater nick = Fixtures.createMuncher();
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();
         // When: the muncher eats the food
