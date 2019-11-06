@@ -25,6 +25,7 @@ of medians, I want to be able to simply calculate summary statistics.</p>
 to use it to improve someone's health.</p>
 
 <h2>User Stories</h2>
+<p>As a user, because I am not a number, dammit, I want Muncher to refer to me by a user-friendly name.</p>
 <p>As a user, because I'm not a programmer, I want a console that allows me to recollect Meals and log a Meal</p>
 <p>As a patient, because I value my privacy, I want my information to be encrypted and viewable only by me and trusted contacts</p>
 <p>As a software engineer, because I want to use Meals in my third-party app integrations, I want an API I can use to
