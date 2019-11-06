@@ -9,10 +9,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 final class PersistToFileMuncher implements Muncher {
@@ -24,13 +21,13 @@ final class PersistToFileMuncher implements Muncher {
 
     @Override
     public void eat(final Food food) {
-        // TODO: unify Meal and Food
+        // TODO: does the whole Meal creation/appending thing need to happen here?
         delegate.eat(food);
     }
 
     @Override
     public void ask(final Consumer<Food> question) {
-        // TODO: unify Meal and Food
+        // TODO: does the whole Meal creation/appending thing need to happen here?
         delegate.ask(question);
     }
 
@@ -108,11 +105,54 @@ final class PersistToFileMuncher implements Muncher {
     public String toString() { return delegate.toString(); }
 
     private static final class SerializedMeal implements Serializable, Meal {
+
+        private static final class SerializedFood implements Serializable, Food {
+            private String food;
+
+            @Override
+            public Name getName() {
+                return new Name(food);
+            }
+
+            private Object writeReplace() throws ObjectStreamException {
+                return food;
+            }
+
+            private Object readResolve() throws ObjectStreamException {
+                return food;
+            }
+        }
+
+        private static final class SerializedFoods implements Serializable, Foods {
+            private final List<SerializedFood> foods;
+
+            private SerializedFoods() {
+                this.foods = new ArrayList<>();
+            }
+
+            @Override
+            public boolean has(final Food food) {
+                return foods.contains(food);
+            }
+
+            @Override
+            public Iterator<Food> iterator() {
+                return foods.stream().map(Food.class::cast).iterator();
+            }
+        }
+
         private final Instant start, end;
+        private final SerializedFoods foods;
 
         private SerializedMeal(final Meal meal) {
             start = meal.getStartedAt();
             end = meal.getEndedAt();
+            foods = new SerializedFoods();
+            meal.getFoods().forEach(f -> {
+                final SerializedFood food = new SerializedFood();
+                food.food = f.toString();
+                foods.foods.add(food);
+            });
         }
 
         @Override
@@ -127,8 +167,7 @@ final class PersistToFileMuncher implements Muncher {
 
         @Override
         public Foods getFoods() {
-            // TODO: make Foods serializable and flesh this out
-            return null;
+            return foods;
         }
     }
 }
