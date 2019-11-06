@@ -1,6 +1,8 @@
 package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
+import software.visionary.muncher.api.Meal;
+import software.visionary.muncher.api.Muncher;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,5 +1,7 @@
 package software.visionary.muncher;
 
+import software.visionary.muncher.api.Meal;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;

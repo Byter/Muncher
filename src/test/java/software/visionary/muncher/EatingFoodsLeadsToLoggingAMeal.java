@@ -1,6 +1,9 @@
 package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
+import software.visionary.muncher.api.Food;
+import software.visionary.muncher.api.Meal;
+import software.visionary.muncher.api.Muncher;
 
 import java.util.ArrayList;
 import java.util.List;
