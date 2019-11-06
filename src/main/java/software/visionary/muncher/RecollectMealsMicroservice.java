@@ -11,14 +11,17 @@ public enum RecollectMealsMicroservice {
     INSTANCE;
 
     public static void main(final String[] args) {
-        busyWait();
+        final Scanner in = new Scanner(System.in);
+        System.out.println("Welcome to Muncher, a Visionary Software Solutions Vision for Meal logging!");
+        System.out.println("What is your name?");
+        final Name theMuncher = new Name(in.nextLine());
+        busyWait(theMuncher, in);
     }
 
-    private static void busyWait() {
-        final Muncher user = new PersistToFileMuncher(new InMemoryMuncher());
+    private static void busyWait(final Name theMuncher, final Scanner in) {
+        final Muncher user = new PersistToFileMuncher(new InMemoryMuncher(theMuncher));
         do {
             printMenu();
-            final Scanner in = new Scanner(System.in);
             switch (in.nextLine()) {
                 case "0" : recollectMealsFromLastWeek(user); break;
                 case "1" : recollectMealsFromTimeRange(user, in); break;

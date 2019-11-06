@@ -13,8 +13,11 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 final class InMemoryMuncher implements Muncher {
+    private final Name name;
     private final List<Meal> consumed;
-    InMemoryMuncher() {
+
+    InMemoryMuncher(final Name name) {
+        this.name = Objects.requireNonNull(name);
         consumed = new ArrayList<>();
     }
 
@@ -43,4 +46,7 @@ final class InMemoryMuncher implements Muncher {
     public void recollect(final Consumer<Meal> query) {
         consumed.forEach(query::accept);
     }
+
+    @Override
+    public String toString() { return name.toString(); }
 }

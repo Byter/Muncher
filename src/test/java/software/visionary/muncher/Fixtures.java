@@ -15,7 +15,11 @@ final class Fixtures {
     }
 
     static Muncher createMuncher() {
-        return new InMemoryMuncher();
+        return new InMemoryMuncher(new Name("fakeMuncher"));
+    }
+
+    static Muncher namedMuncher(final Name name) {
+        return new InMemoryMuncher(name);
     }
 
     private static final class BoneBroth implements Food {

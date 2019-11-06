@@ -104,6 +104,9 @@ final class PersistToFileMuncher implements Muncher {
         saved.forEach(query);
     }
 
+    @Override
+    public String toString() { return delegate.toString(); }
+
     private static final class SerializedMeal implements Serializable, Meal {
         private final Instant start, end;
 
