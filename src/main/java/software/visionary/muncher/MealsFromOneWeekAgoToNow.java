@@ -27,4 +27,5 @@ final class MealsFromOneWeekAgoToNow implements Consumer<Meal> {
     boolean contains(final Meal sought) {
         return found.contains(sought);
     }
+
 }
