@@ -72,7 +72,12 @@ public enum LogMealMicroservice {
                         return;
                     case "+":
                         final Food f = new InMemoryFood(new Name(scanner.nextLine()));
+                        System.out.println("Adding the food " + f);
                         toLog.add(f);
+                        break;
+                    default:
+                        System.out.println("Unsupported option, choose + or /");
+                        break;
                 }
             }
         }

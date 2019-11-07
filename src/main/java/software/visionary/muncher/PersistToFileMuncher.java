@@ -114,12 +114,9 @@ final class PersistToFileMuncher implements Muncher {
                 return new Name(food);
             }
 
-            private Object writeReplace() throws ObjectStreamException {
-                return food;
-            }
-
-            private Object readResolve() throws ObjectStreamException {
-                return food;
+            @Override
+            public String toString() {
+                return getName().toString();
             }
         }
 
@@ -132,12 +129,19 @@ final class PersistToFileMuncher implements Muncher {
 
             @Override
             public boolean has(final Food food) {
-                return foods.contains(food);
+                return (food instanceof SerializedFood) && foods.contains(food);
             }
 
             @Override
             public Iterator<Food> iterator() {
                 return foods.stream().map(Food.class::cast).iterator();
+            }
+
+            @Override
+            public String toString() {
+                final StringBuilder builder = new StringBuilder();
+                foods.forEach(food -> builder.append(String.format("%n%s%n", food)));
+                return builder.toString();
             }
         }
 
@@ -168,6 +172,11 @@ final class PersistToFileMuncher implements Muncher {
         @Override
         public Foods getFoods() {
             return foods;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Started @ %s%nEnded @ %s%nContained:%s%n", start, end, foods);
         }
     }
 }

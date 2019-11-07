@@ -15,4 +15,9 @@ final class InMemoryFood implements Food {
     public Name getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return getName().toString();
+    }
 }
