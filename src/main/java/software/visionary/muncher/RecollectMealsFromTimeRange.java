@@ -5,19 +5,20 @@ import software.visionary.muncher.api.Muncher;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 
 final class RecollectMealsFromTimeRange implements Runnable {
     private final String startTime, endTime;
     private final Muncher user;
 
-    RecollectMealsFromTimeRange(final Scanner in, final Muncher user) {
-        this(in.nextLine(), in.nextLine(), user);
-    }
-
-    RecollectMealsFromTimeRange(final String startTime, final String endTime, final Muncher user) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    RecollectMealsFromTimeRange(final String[] args) {
+        final Deque<String> toProcess = new ArrayDeque<>(Arrays.asList(args));
+        final Name theMuncher = new Name(toProcess.pop());
+        final PersistToFileMuncher user = new PersistToFileMuncher(theMuncher);
+        this.startTime = toProcess.pop();
+        this.endTime = toProcess.pop();
         this.user = user;
     }
 

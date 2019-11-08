@@ -1,8 +1,6 @@
 package software.visionary.muncher;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
 
 public enum FunctionalRecollectMealsMicroservice {
     INSTANCE;
@@ -12,13 +10,8 @@ public enum FunctionalRecollectMealsMicroservice {
             printHelp();
         }
 
-        final Deque<String> toProcess = new ArrayDeque<>(Arrays.asList(args));
-        final Name theMuncher = new Name(toProcess.pop());
-        if (toProcess.isEmpty()) {
-            new RecollectMealsFromLastWeek(new PersistToFileMuncher(theMuncher)).run();
-        } else {
-            new RecollectMealsFromTimeRange(toProcess.pop(), toProcess.pop(), new PersistToFileMuncher(theMuncher)).run();
-        }
+        final Runnable toRun = (args.length == 0) ? new RecollectMealsFromLastWeek(args) : new RecollectMealsFromTimeRange(args);
+        toRun.run();
     }
 
     private static void printHelp() {

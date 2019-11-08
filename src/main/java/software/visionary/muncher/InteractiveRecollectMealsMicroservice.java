@@ -20,8 +20,8 @@ public enum InteractiveRecollectMealsMicroservice {
         do {
             printMenu();
             switch (in.nextLine()) {
-                case "0" : new RecollectMealsFromLastWeek(user).run(); break;
-                case "1" : new RecollectMealsFromTimeRange(in, user).run(); break;
+                case "0" : new RecollectMealsFromLastWeek(new String[] { theMuncher.toString()}).run(); break;
+                case "1" : new RecollectMealsFromTimeRange(new String[]{in.nextLine(), in.nextLine(), theMuncher.toString()}).run(); break;
                 case "q":
                 case "Q":
                     System.exit(1);
