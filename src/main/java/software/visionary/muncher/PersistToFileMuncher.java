@@ -5,12 +5,11 @@ import software.visionary.muncher.api.Foods;
 import software.visionary.muncher.api.Meal;
 import software.visionary.muncher.api.Muncher;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 final class PersistToFileMuncher implements Muncher {
     private final Muncher delegate;
@@ -33,29 +32,13 @@ final class PersistToFileMuncher implements Muncher {
 
     @Override
     public synchronized void log(final Meal meal) {
-        final File stored = getFileToSaveAs();
         final VerifyMealsStored previouslyStored = new VerifyMealsStored();
         recollect(previouslyStored);
-        try(final ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(stored))) {
-            for (final Meal storeAgain : previouslyStored.getStoredMeals()) {
-                os.writeObject(new SerializedMeal(storeAgain));
-            }
-            os.writeObject(new SerializedMeal(meal));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private File getFileToSaveAs() {
-        final File stored = Paths.get(toString()).toFile();
-        if (!stored.exists()) {
-            try {
-                Files.createFile(stored.toPath());
-            } catch (final IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return stored;
+        final List<SerializedMeal> toWrite = new ArrayList<>(previouslyStored.getStoredMeals().size() + 1);
+        toWrite.addAll(previouslyStored.getStoredMeals().stream().map(SerializedMeal.class::cast).collect(Collectors.toList()));
+        toWrite.add(new SerializedMeal(meal));
+        //TODO: Refactor to Dependency Injection if necessary
+        ObjectSerializer.INSTANCE.writeAllObjectsToFile(toWrite, ObjectSerializer.getFileToSaveAs(toString()));
     }
 
     static final class VerifyMealsStored implements Consumer<Meal> {
@@ -82,8 +65,8 @@ final class PersistToFileMuncher implements Muncher {
 
     @Override
     public void recollect(final Consumer<Meal> query) {
-        final File stored = getFileToSaveAs();
-        ObjectReader.readAllObjects(stored).stream().map(SerializedMeal.class::cast).forEach(query);
+        //TODO: Refactor to Dependency Injection if necessary
+        ObjectSerializer.INSTANCE.readAllObjects(ObjectSerializer.getFileToSaveAs(toString())).stream().map(SerializedMeal.class::cast).forEach(query);
     }
 
     @Override
