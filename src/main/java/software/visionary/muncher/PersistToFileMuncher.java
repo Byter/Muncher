@@ -82,23 +82,8 @@ final class PersistToFileMuncher implements Muncher {
 
     @Override
     public void recollect(final Consumer<Meal> query) {
-        final List<Meal> saved = new ArrayList<>();
         final File stored = getFileToSaveAs();
-        if (stored.length() != 0) {
-            try(final ObjectInputStream is = new ObjectInputStream(new FileInputStream(stored))) {
-                while (true) {
-                    try {
-                        final SerializedMeal aMeal = (SerializedMeal) is.readObject();
-                        saved.add(aMeal);
-                    } catch (final EOFException e) {
-                        break; // we've read all the objects. what a shitty API.
-                    }
-                }
-            } catch (final IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        saved.forEach(query);
+        ObjectReader.readAllObjects(stored).stream().map(SerializedMeal.class::cast).forEach(query);
     }
 
     @Override
