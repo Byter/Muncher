@@ -10,7 +10,7 @@ public enum FunctionalRecollectMealsMicroservice {
             printHelp();
         }
 
-        final Runnable toRun = (args.length == 0) ? new RecollectMealsFromLastWeek(args) : new RecollectMealsFromTimeRange(args);
+        final Runnable toRun = (args.length == 1) ? new RecollectMealsFromLastWeek(args) : new RecollectMealsFromTimeRange(args);
         toRun.run();
     }
 

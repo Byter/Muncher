@@ -6,7 +6,7 @@ final class RecollectMealsFromLastWeek implements Runnable {
     private final Muncher user;
 
     RecollectMealsFromLastWeek(final String[] args) {
-        final Name name = new Name(args[1]);
+        final Name name = new Name(args[0]);
         this.user = new PersistToFileMuncher(name);
     }
 
