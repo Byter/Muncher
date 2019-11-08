@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Scanner;
 
-public enum LogMealMicroservice {
+public enum InteractiveLogMealMicroservice {
     INSTANCE;
 
     public static void main(final String[] args) {

@@ -4,7 +4,7 @@ import software.visionary.muncher.api.Muncher;
 
 import java.util.Scanner;
 
-public enum RecollectMealsMicroservice {
+public enum InteractiveRecollectMealsMicroservice {
     INSTANCE;
 
     public static void main(final String[] args) {
