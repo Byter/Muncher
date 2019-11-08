@@ -16,7 +16,7 @@ public enum RecollectMealsMicroservice {
     }
 
     private static void busyWait(final Name theMuncher, final Scanner in) {
-        final Muncher user = new PersistToFileMuncher(new InMemoryMuncher(theMuncher));
+        final Muncher user = new PersistToFileMuncher(theMuncher);
         do {
             printMenu();
             switch (in.nextLine()) {
