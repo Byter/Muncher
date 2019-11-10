@@ -1,5 +1,6 @@
 package software.visionary.muncher;
 
+import software.visionary.api.EventsFromOneWeekAgoToNow;
 import software.visionary.api.Name;
 import software.visionary.api.Queryable;
 import software.visionary.muncher.api.Meal;
@@ -13,7 +14,9 @@ final class RecollectMealsFromLastWeek implements Runnable {
     }
 
     public void run() {
-        final MealsFromOneWeekAgoToNow query = new MealsFromOneWeekAgoToNow();
+        final EventsFromOneWeekAgoToNow<Meal> query = new EventsFromOneWeekAgoToNow<>(){
+
+        };
         user.query(query.andThen(System.out::println));
     }
 }

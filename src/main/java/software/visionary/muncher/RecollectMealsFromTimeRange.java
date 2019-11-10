@@ -1,5 +1,6 @@
 package software.visionary.muncher;
 
+import software.visionary.api.EventsWithinTimeRange;
 import software.visionary.api.Name;
 import software.visionary.api.Queryable;
 import software.visionary.muncher.api.Meal;
@@ -29,7 +30,7 @@ final class RecollectMealsFromTimeRange implements Runnable {
         final LocalDateTime startedAt = LocalDateTime.parse(startTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         System.out.println("Enter the year-month-day and time the meal ended, e.g. 2019-11-05T23:59");
         final LocalDateTime endedAt = LocalDateTime.parse(endTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        final MealsWithinTimeRange query = new MealsWithinTimeRange(startedAt.toInstant(ZoneOffset.UTC), endedAt.toInstant(ZoneOffset.UTC));
+        final EventsWithinTimeRange<Meal> query = new EventsWithinTimeRange<Meal>(startedAt.toInstant(ZoneOffset.UTC), endedAt.toInstant(ZoneOffset.UTC)){};
         user.query(query.andThen(System.out::println));
     }
 }

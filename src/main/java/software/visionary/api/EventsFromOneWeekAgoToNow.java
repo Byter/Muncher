@@ -23,7 +23,7 @@ public abstract class EventsFromOneWeekAgoToNow<T extends Event> implements Cons
         }
     }
 
-    public boolean contains(final T sought) {
+    public final boolean contains(final T sought) {
         return found.contains(sought);
     }
 }

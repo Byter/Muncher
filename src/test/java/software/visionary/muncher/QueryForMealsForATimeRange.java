@@ -1,8 +1,13 @@
 package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
+import software.visionary.api.EventsFromOneWeekAgoToNow;
+import software.visionary.api.EventsWithinTimeRange;
 import software.visionary.api.Storable;
 import software.visionary.muncher.api.Meal;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,7 +30,8 @@ final class QueryForMealsForATimeRange {
         final Meal fourth = Fixtures.createMealFromXDaysAgo(1);
         mom.store(fourth);
         // And: A query for meals
-        final MealsFromOneWeekAgoToNow query = new MealsFromOneWeekAgoToNow();
+        final EventsFromOneWeekAgoToNow<Meal> query = new EventsFromOneWeekAgoToNow<>() {
+        };
         // When: I query
         mom.query(query);
         // Then: the fourth weight is stored
@@ -55,7 +61,9 @@ final class QueryForMealsForATimeRange {
         final Meal fourth = Fixtures.createMealFromXDaysAgo(1);
         mom.store(fourth);
         // And: A query for meals
-        final MealsWithinTimeRange query = MealsWithinTimeRange.mealsEatenLastWeek();
+        final Instant startTime = Instant.now().minusSeconds(5); // we just created the fixtures, we want them included
+        final EventsWithinTimeRange<Meal> query = new EventsWithinTimeRange<Meal>(startTime.minus(14, ChronoUnit.DAYS),
+                startTime.minus(7, ChronoUnit.DAYS)){};
         // When: I query
         mom.query(query);
         // Then: the fourth weight is not stored

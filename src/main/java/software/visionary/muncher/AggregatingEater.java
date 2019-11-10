@@ -1,5 +1,6 @@
 package software.visionary.muncher;
 
+import software.visionary.api.EventsWithinTimeRange;
 import software.visionary.api.Storable;
 import software.visionary.muncher.api.*;
 
@@ -20,7 +21,7 @@ final class AggregatingEater implements Storable<Food> {
     @Override
     public void store(final Food toStore) {
         final Instant oneHourAgo = Instant.now().minus(1, ChronoUnit.HOURS);
-        final MealsWithinTimeRange anyThingEaten = new MealsWithinTimeRange(oneHourAgo, Instant.now());
+        final EventsWithinTimeRange<Meal> anyThingEaten = new EventsWithinTimeRange<>(oneHourAgo, Instant.now()) {};
         muncher.query(anyThingEaten);
         anyThingEaten.mostRecent()
                 .ifPresentOrElse(meal -> ((MutableMeal) meal).store(toStore), () -> muncher.store(InMemoryMeal.fromFood(toStore)));
