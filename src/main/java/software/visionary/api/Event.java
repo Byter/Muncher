@@ -1,4 +1,4 @@
-package software.visionary.muncher.api;
+package software.visionary.api;
 
 import java.time.Instant;
 

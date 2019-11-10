@@ -1,7 +1,7 @@
 package software.visionary.muncher;
 
 import software.visionary.muncher.api.Food;
-import software.visionary.muncher.api.Storable;
+import software.visionary.api.Storable;
 
 import java.util.ArrayList;
 import java.util.List;
