@@ -49,7 +49,7 @@ public enum FunctionalLogMealMicroservice {
                 System.out.println("Adding the food " + f);
                 toLog.add(f);
             }
-            user.log(toLog);
+            user.store(toLog);
         }
     }
 }

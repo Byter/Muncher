@@ -1,5 +1,5 @@
 package software.visionary.muncher.api;
 
-public interface Eater extends Loggable<Food> {
+public interface Eater extends Storable<Food> {
 
 }

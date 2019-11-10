@@ -60,7 +60,7 @@ public enum InteractiveLogMealMicroservice {
             final LocalDateTime endedAt = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             final MutableMeal toLog = new InMemoryMeal(startedAt.toInstant(ZoneOffset.UTC), endedAt.toInstant(ZoneOffset.UTC));
             addFood(toLog);
-            theMuncher.log(toLog);
+            theMuncher.store(toLog);
         }
 
         private void addFood(final MutableMeal toLog) {

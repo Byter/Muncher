@@ -16,12 +16,12 @@ final class InMemoryEater implements Eater {
     }
 
     @Override
-    public void log(final Food toStore) {
+    public void store(final Food toStore) {
         consumed.add(Objects.requireNonNull(toStore));
     }
 
     @Override
-    public void query(final Consumer<Food> question) {
-        consumed.forEach(question::accept);
+    public void query(final Consumer<Food> visitor) {
+        consumed.forEach(visitor::accept);
     }
 }

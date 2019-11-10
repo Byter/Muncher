@@ -18,13 +18,13 @@ final class InMemoryMuncher implements Muncher {
     }
 
     @Override
-    public void log(final Meal toStore) {
+    public void store(final Meal toStore) {
         consumed.add(Objects.requireNonNull(toStore));
     }
 
     @Override
-    public void query(final Consumer<Meal> query) {
-        consumed.forEach(query::accept);
+    public void query(final Consumer<Meal> visitor) {
+        consumed.forEach(visitor::accept);
     }
 
     @Override

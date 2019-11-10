@@ -26,7 +26,7 @@ final class PersistMealLogAsAFile {
         final Muncher mom = new PersistToFileMuncher(new Name("Mom"));
         // When: that person logs a Meal from 14 days ago
         final Meal first = Fixtures.createMealFromXDaysAgo(14);
-        mom.log(first);
+        mom.store(first);
         // Then: A file should exist for that muncher
         Assertions.assertTrue(Files.exists(Paths.get(mom.toString())));
     }
@@ -37,16 +37,16 @@ final class PersistMealLogAsAFile {
         final Muncher mom = new PersistToFileMuncher(new Name("Mom"));
         // And: that person logs a Meal from 14 days ago
         final Meal first = Fixtures.createMealFromXDaysAgo(14);
-        mom.log(first);
+        mom.store(first);
         // And: that person logs a Meal from 3 days ago
         final Meal second = Fixtures.createMealFromXDaysAgo(3);
-        mom.log(second);
+        mom.store(second);
         // And: that person logs a Meal from 2 days ago
         final Meal third = Fixtures.createMealFromXDaysAgo(2);
-        mom.log(third);
+        mom.store(third);
         // And: that person logs a Meal from yesterday
         final Meal fourth = Fixtures.createMealFromXDaysAgo(1);
-        mom.log(fourth);
+        mom.store(fourth);
         // When: I query the Muncher for all Meals stored
         final List<Meal> sought = new ArrayList<>(4);
         mom.query(meal -> sought.add(new SoughtMeal(meal)));

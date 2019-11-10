@@ -18,7 +18,7 @@ final class AddFoodToLog {
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();
         // When: the muncher eats the food
-        nick.log(boneBroth);
+        nick.store(boneBroth);
         // And: I ask the muncher about the food they've eaten
         final WhatDidYouEat question = new WhatDidYouEat();
         nick.query(question);
