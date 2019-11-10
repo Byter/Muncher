@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-final class AggregatingEater implements Eater {
+final class AggregatingEater implements Storable<Food> {
     private final Muncher muncher;
 
     AggregatingEater(final Muncher muncher) {

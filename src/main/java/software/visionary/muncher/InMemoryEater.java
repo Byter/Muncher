@@ -1,6 +1,6 @@
 package software.visionary.muncher;
 
-import software.visionary.muncher.api.Eater;
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.Food;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-final class InMemoryEater implements Eater {
+final class InMemoryEater implements Storable<Food> {
     private final List<Food> consumed;
 
     InMemoryEater() {

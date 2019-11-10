@@ -1,5 +1,6 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.*;
 
 import java.time.Instant;
@@ -14,7 +15,7 @@ final class Fixtures {
         return new InMemoryMeal(startTime, endTime);
     }
 
-    static Eater createEater() { return new InMemoryEater();}
+    static Storable<Food> createEater() { return new InMemoryEater();}
 
     static Muncher createMuncher() {
         return new InMemoryMuncher(new Name("fakeMuncher"));

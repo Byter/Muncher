@@ -2,7 +2,7 @@ package software.visionary.muncher;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.visionary.muncher.api.Eater;
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.Food;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ final class AddFoodToLog {
     @Test
     void canConsumeFood() {
         // Given: the existence of a Eater
-        final Eater nick = Fixtures.createEater();
+        final Storable<Food> nick = Fixtures.createEater();
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();
         // When: the muncher eats the food

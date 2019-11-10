@@ -1,7 +1,7 @@
 package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
-import software.visionary.muncher.api.Eater;
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.Food;
 import software.visionary.muncher.api.Meal;
 import software.visionary.muncher.api.Muncher;
@@ -18,7 +18,7 @@ final class EatingFoodsLeadsToLoggingAMeal {
     void consumingFoodResultsInCreationOfAMeal() {
         // Given: the existence of a muncher
         final Muncher muncher = Fixtures.createMuncher();
-        final Eater nick = new AggregatingEater(muncher);
+        final Storable<Food> nick = new AggregatingEater(muncher);
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();
         // When: the muncher eats the food
