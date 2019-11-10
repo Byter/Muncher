@@ -1,5 +1,5 @@
 package software.visionary.muncher.api;
 
 public interface Meal extends Event {
-    Foods getFoods();
+    Storable<Food> getFoods();
 }

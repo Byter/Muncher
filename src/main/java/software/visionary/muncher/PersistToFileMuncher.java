@@ -1,9 +1,6 @@
 package software.visionary.muncher;
 
-import software.visionary.muncher.api.Food;
-import software.visionary.muncher.api.Foods;
-import software.visionary.muncher.api.Meal;
-import software.visionary.muncher.api.Muncher;
+import software.visionary.muncher.api.*;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -55,7 +52,7 @@ final class PersistToFileMuncher implements Muncher {
             }
         }
 
-        private static final class SerializedFoods implements Serializable, Foods {
+        private static final class SerializedFoods implements Serializable, Storable<Food> {
             private final List<SerializedFood> foods;
 
             private SerializedFoods() {
@@ -104,7 +101,7 @@ final class PersistToFileMuncher implements Muncher {
         }
 
         @Override
-        public Foods getFoods() {
+        public Storable<Food> getFoods() {
             return foods;
         }
 

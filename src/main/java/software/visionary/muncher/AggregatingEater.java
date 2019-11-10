@@ -27,7 +27,7 @@ final class AggregatingEater implements Eater {
 
     @Override
     public void query(final Consumer<Food> visitor) {
-        final List<Foods> foods = new ArrayList<>();
+        final List<Storable<Food>> foods = new ArrayList<>();
         muncher.query(m -> foods.add(m.getFoods()));
         foods.forEach(theFoods -> theFoods.query(visitor));
     }

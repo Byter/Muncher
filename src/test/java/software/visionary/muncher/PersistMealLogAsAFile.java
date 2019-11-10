@@ -3,17 +3,13 @@ package software.visionary.muncher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.visionary.muncher.api.Food;
-import software.visionary.muncher.api.Foods;
-import software.visionary.muncher.api.Meal;
-import software.visionary.muncher.api.Muncher;
+import software.visionary.muncher.api.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -72,8 +68,8 @@ final class PersistMealLogAsAFile {
         }
 
         @Override
-        public Foods getFoods() {
-            return new Foods() {
+        public Storable<Food> getFoods() {
+            return new Storable<>() {
 
                 @Override
                 public void query(final Consumer<Food> visitor) {

@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 final class InMemoryMeal implements MutableMeal {
     private final Instant startTime;
     private final Instant endTime;
-    private final Foods foods;
+    private final Storable<Food> foods;
 
     InMemoryMeal(final Instant startTime, final Instant endTime) {
         this.startTime = Objects.requireNonNull(startTime);
@@ -34,7 +34,7 @@ final class InMemoryMeal implements MutableMeal {
     }
 
     @Override
-    public Foods getFoods() {
+    public Storable<Food> getFoods() {
         return foods;
     }
 
