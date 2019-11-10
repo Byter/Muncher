@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -67,20 +68,21 @@ final class PersistMealLogAsAFile {
             this.start = meal.getStartedAt();
             this.end = meal.getEndedAt();
             foods = new ArrayList<>();
-            meal.getFoods().iterator().forEachRemaining(foods::add);
+            meal.getFoods().query(foods::add);
         }
 
         @Override
         public Foods getFoods() {
             return new Foods() {
+
                 @Override
-                public boolean has(final Food food) {
-                    return foods.contains(food);
+                public void query(final Consumer<Food> visitor) {
+                    foods.forEach(visitor::accept);
                 }
 
                 @Override
-                public Iterator<Food> iterator() {
-                    return foods.iterator();
+                public void store(final Food toStore) {
+                    foods.add(toStore);
                 }
             };
         }

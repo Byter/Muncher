@@ -42,9 +42,11 @@ final class EatingFoodsLeadsToLoggingAMeal {
 
         @Override
         public void accept(final Meal meal) {
-            if (meal.getFoods().has(sought)) {
-                meals.add(meal);
-            }
+            meal.getFoods().query(f -> {
+                if (f.equals(sought)) {
+                    meals.add(meal);
+                }
+            });
         }
 
         boolean foundMealFromFood() {

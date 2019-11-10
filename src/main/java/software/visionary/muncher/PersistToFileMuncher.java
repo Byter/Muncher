@@ -40,6 +40,10 @@ final class PersistToFileMuncher implements Muncher {
         private static final class SerializedFood implements Serializable, Food {
             private String food;
 
+            private SerializedFood(final Food food) {
+                this.food = Objects.requireNonNull(food).getName().toString();
+            }
+
             @Override
             public Name getName() {
                 return new Name(food);
@@ -59,20 +63,20 @@ final class PersistToFileMuncher implements Muncher {
             }
 
             @Override
-            public boolean has(final Food food) {
-                return (food instanceof SerializedFood) && foods.contains(food);
-            }
-
-            @Override
-            public Iterator<Food> iterator() {
-                return foods.stream().map(Food.class::cast).iterator();
-            }
-
-            @Override
             public String toString() {
                 final StringBuilder builder = new StringBuilder();
                 foods.forEach(food -> builder.append(String.format("%n%s%n", food)));
                 return builder.toString();
+            }
+
+            @Override
+            public void store(final Food food) {
+                foods.add(new SerializedFood(food));
+            }
+
+            @Override
+            public void query(final Consumer<Food> visitor) {
+
             }
         }
 
@@ -83,10 +87,9 @@ final class PersistToFileMuncher implements Muncher {
             start = meal.getStartedAt();
             end = meal.getEndedAt();
             foods = new SerializedFoods();
-            meal.getFoods().forEach(f -> {
-                final SerializedFood food = new SerializedFood();
-                food.food = f.toString();
-                foods.foods.add(food);
+            meal.getFoods().query(f -> {
+                final SerializedFood food = new SerializedFood(f);
+                foods.store(food);
             });
         }
 

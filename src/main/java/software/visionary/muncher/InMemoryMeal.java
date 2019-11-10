@@ -4,11 +4,12 @@ import software.visionary.muncher.api.*;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 final class InMemoryMeal implements MutableMeal {
     private final Instant startTime;
     private final Instant endTime;
-    private final MutableFoods foods;
+    private final Foods foods;
 
     InMemoryMeal(final Instant startTime, final Instant endTime) {
         this.startTime = Objects.requireNonNull(startTime);
@@ -18,7 +19,7 @@ final class InMemoryMeal implements MutableMeal {
 
     static Meal fromFood(final Food food) {
         final InMemoryMeal newMeal = new InMemoryMeal(Instant.now(), Instant.now());
-        newMeal.add(food);
+        newMeal.store(food);
         return newMeal;
     }
 
@@ -38,7 +39,12 @@ final class InMemoryMeal implements MutableMeal {
     }
 
     @Override
-    public void add(final Food food) {
-        foods.add(Objects.requireNonNull(food));
+    public void store(final Food food) {
+        foods.store(Objects.requireNonNull(food));
+    }
+
+    @Override
+    public void query(final Consumer<Food> visitor) {
+        foods.query(visitor::accept);
     }
 }

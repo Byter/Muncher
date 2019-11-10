@@ -47,7 +47,7 @@ public enum FunctionalLogMealMicroservice {
             while (!args.isEmpty()) {
                 final Food f = new InMemoryFood(new Name(args.pop()));
                 System.out.println("Adding the food " + f);
-                toLog.add(f);
+                toLog.store(f);
             }
             user.store(toLog);
         }

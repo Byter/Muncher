@@ -22,13 +22,13 @@ final class AggregatingEater implements Eater {
         final MealsWithinTimeRange anyThingEaten = new MealsWithinTimeRange(oneHourAgo, Instant.now());
         muncher.query(anyThingEaten);
         anyThingEaten.mostRecent()
-                .ifPresentOrElse(meal -> ((MutableMeal) meal).add(toStore), () -> muncher.store(InMemoryMeal.fromFood(toStore)));
+                .ifPresentOrElse(meal -> ((MutableMeal) meal).store(toStore), () -> muncher.store(InMemoryMeal.fromFood(toStore)));
     }
 
     @Override
     public void query(final Consumer<Food> visitor) {
         final List<Foods> foods = new ArrayList<>();
         muncher.query(m -> foods.add(m.getFoods()));
-        foods.forEach(theFoods -> theFoods.forEach(visitor));
+        foods.forEach(theFoods -> theFoods.query(visitor));
     }
 }
