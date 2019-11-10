@@ -12,6 +12,6 @@ final class RecollectMealsFromLastWeek implements Runnable {
 
     public void run() {
         final MealsFromOneWeekAgoToNow query = new MealsFromOneWeekAgoToNow();
-        user.recollect(query.andThen(System.out::println));
+        user.query(query.andThen(System.out::println));
     }
 }

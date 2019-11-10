@@ -18,26 +18,16 @@ final class PersistToFileMuncher implements Muncher {
     }
 
     @Override
-    public void eat(final Food food) {
-        // TODO: does the whole Meal creation/appending thing need to happen here?
-    }
-
-    @Override
-    public void ask(final Consumer<Food> question) {
-        // TODO: does the whole Meal creation/appending thing need to happen here?
-    }
-
-    @Override
-    public synchronized void log(final Meal meal) {
+    public synchronized void log(final Meal toStore) {
         final List<Meal> toWrite = new ArrayList<>();
-        recollect(toWrite::add);
-        toWrite.add(new SerializedMeal(meal));
+        query(toWrite::add);
+        toWrite.add(new SerializedMeal(toStore));
         //TODO: Refactor to Dependency Injection if necessary
         ObjectSerializer.INSTANCE.writeAllObjectsToFile(toWrite, ObjectSerializer.getFileToSaveAs(toString()));
     }
 
     @Override
-    public void recollect(final Consumer<Meal> query) {
+    public void query(final Consumer<Meal> query) {
         //TODO: Refactor to Dependency Injection if necessary
         ObjectSerializer.INSTANCE.readAllObjects(ObjectSerializer.getFileToSaveAs(toString())).stream().map(SerializedMeal.class::cast).forEach(query);
     }

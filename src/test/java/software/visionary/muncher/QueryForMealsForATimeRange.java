@@ -27,7 +27,7 @@ final class QueryForMealsForATimeRange {
         // And: A query for meals
         final MealsFromOneWeekAgoToNow query = new MealsFromOneWeekAgoToNow();
         // When: I query
-        mom.recollect(query);
+        mom.query(query);
         // Then: the fourth weight is stored
         assertTrue(query.contains(fourth));
         // And: the third weight is stored
@@ -57,7 +57,7 @@ final class QueryForMealsForATimeRange {
         // And: A query for meals
         final MealsWithinTimeRange query = MealsWithinTimeRange.mealsEatenLastWeek();
         // When: I query
-        mom.recollect(query);
+        mom.query(query);
         // Then: the fourth weight is not stored
         assertFalse(query.contains(fourth));
         // And: the third weight is not stored

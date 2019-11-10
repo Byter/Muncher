@@ -1,6 +1,7 @@
 package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
+import software.visionary.muncher.api.Eater;
 import software.visionary.muncher.api.Food;
 import software.visionary.muncher.api.Meal;
 import software.visionary.muncher.api.Muncher;
@@ -16,15 +17,16 @@ final class EatingFoodsLeadsToLoggingAMeal {
     @Test
     void consumingFoodResultsInCreationOfAMeal() {
         // Given: the existence of a muncher
-        final Muncher nick = Fixtures.createMuncher();
+        final Muncher muncher = Fixtures.createMuncher();
+        final Eater nick = new AggregatingEater(muncher);
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();
         // When: the muncher eats the food
-        nick.eat(boneBroth);
+        nick.log(boneBroth);
         // And: I ask the muncher about the Meals they've had
         final MealsContainingFood query = new MealsContainingFood(boneBroth);
         // When: I query
-        nick.recollect(query);
+        muncher.query(query);
         // Then: the meal is found
         assertTrue(query.foundMealFromFood());
     }

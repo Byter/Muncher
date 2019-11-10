@@ -49,7 +49,7 @@ final class PersistMealLogAsAFile {
         mom.log(fourth);
         // When: I query the Muncher for all Meals stored
         final List<Meal> sought = new ArrayList<>(4);
-        mom.recollect(meal -> sought.add(new SoughtMeal(meal)));
+        mom.query(meal -> sought.add(new SoughtMeal(meal)));
         // Then: every meal logged should be stored
         Assertions.assertTrue(sought.containsAll(Stream.of(first,second,third,fourth).map(SoughtMeal::new).collect(Collectors.toList())));
     }

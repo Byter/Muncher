@@ -13,15 +13,15 @@ import java.util.function.Consumer;
 final class AddFoodToLog {
     @Test
     void canConsumeFood() {
-        // Given: the existence of a muncher
-        final Eater nick = Fixtures.createMuncher();
+        // Given: the existence of a Eater
+        final Eater nick = Fixtures.createEater();
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();
         // When: the muncher eats the food
-        nick.eat(boneBroth);
+        nick.log(boneBroth);
         // And: I ask the muncher about the food they've eaten
         final WhatDidYouEat question = new WhatDidYouEat();
-        nick.ask(question);
+        nick.query(question);
         // Then: the answer contains the food
         Assertions.assertTrue(question.hasEaten(boneBroth));
     }

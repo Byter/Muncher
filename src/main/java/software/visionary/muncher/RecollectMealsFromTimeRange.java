@@ -28,6 +28,6 @@ final class RecollectMealsFromTimeRange implements Runnable {
         System.out.println("Enter the year-month-day and time the meal ended, e.g. 2019-11-05T23:59");
         final LocalDateTime endedAt = LocalDateTime.parse(endTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         final MealsWithinTimeRange query = new MealsWithinTimeRange(startedAt.toInstant(ZoneOffset.UTC), endedAt.toInstant(ZoneOffset.UTC));
-        user.recollect(query.andThen(System.out::println));
+        user.query(query.andThen(System.out::println));
     }
 }

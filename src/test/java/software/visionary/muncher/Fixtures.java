@@ -14,6 +14,8 @@ final class Fixtures {
         return new InMemoryMeal(startTime, endTime);
     }
 
+    static Eater createEater() { return new InMemoryEater();}
+
     static Muncher createMuncher() {
         return new InMemoryMuncher(new Name("fakeMuncher"));
     }
