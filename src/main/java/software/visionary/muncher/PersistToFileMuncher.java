@@ -1,5 +1,7 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Name;
+import software.visionary.api.ObjectSerializer;
 import software.visionary.api.Storable;
 import software.visionary.muncher.api.*;
 

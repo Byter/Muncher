@@ -1,6 +1,6 @@
 package software.visionary.muncher.api;
 
-import software.visionary.muncher.Name;
+import software.visionary.api.Name;
 
 public interface Food {
     default Name getName() {

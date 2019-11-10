@@ -1,5 +1,7 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Name;
+
 import java.util.Scanner;
 
 public enum InteractiveRecollectMealsMicroservice {

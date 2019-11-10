@@ -1,5 +1,6 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Name;
 import software.visionary.muncher.api.Food;
 
 import java.util.Objects;

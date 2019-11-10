@@ -2,6 +2,7 @@ package software.visionary.muncher;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import software.visionary.api.Name;
 import software.visionary.api.Storable;
 import software.visionary.muncher.api.Meal;
 

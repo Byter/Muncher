@@ -1,4 +1,4 @@
-package software.visionary.muncher;
+package software.visionary.api;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -6,10 +6,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-enum ObjectSerializer {
+public enum ObjectSerializer {
     INSTANCE;
 
-    static File getFileToSaveAs(final String fileName) {
+    public static File getFileToSaveAs(final String fileName) {
         final File stored = Paths.get(fileName).toFile();
         if (!stored.exists()) {
             try {
@@ -21,7 +21,7 @@ enum ObjectSerializer {
         return stored;
     }
 
-    List<Object> readAllObjects(final File stored) {
+    public List<Object> readAllObjects(final File stored) {
         final List<Object> objects = new ArrayList<Object>();
         if (stored != null && stored.length() != 0) {
             try (final ObjectInputStream is = new ObjectInputStream(new FileInputStream(stored))) {
@@ -39,7 +39,7 @@ enum ObjectSerializer {
         return objects;
     }
 
-    void writeAllObjectsToFile(final List<?> toWrite, final File stored) {
+    public void writeAllObjectsToFile(final List<?> toWrite, final File stored) {
         try(final ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(stored))) {
             for (final Object o : toWrite) {
                 os.writeObject(o);
