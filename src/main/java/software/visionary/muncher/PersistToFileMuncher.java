@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 final class PersistToFileMuncher implements Storable<Meal> {
+    private static final Object LOCK = new Object();
     private final Name name;
 
     PersistToFileMuncher(final Name theMuncher) {
@@ -18,18 +19,22 @@ final class PersistToFileMuncher implements Storable<Meal> {
     }
 
     @Override
-    public synchronized void store(final Meal toStore) {
-        final List<Meal> toWrite = new ArrayList<>();
-        query(toWrite::add);
-        toWrite.add(new SerializedMeal(toStore));
-        //TODO: Refactor to Dependency Injection if necessary
-        ObjectSerializer.INSTANCE.writeAllObjectsToFile(toWrite, ObjectSerializer.getFileToSaveAs(toString()));
+    public void store(final Meal toStore) {
+        synchronized (LOCK) {
+            final List<Meal> toWrite = new ArrayList<>();
+            query(toWrite::add);
+            toWrite.add(new SerializedMeal(toStore));
+            //TODO: Refactor to Dependency Injection if necessary
+            ObjectSerializer.INSTANCE.writeAllObjectsToFile(toWrite, ObjectSerializer.getFileToSaveAs(toString()));
+        }
     }
 
     @Override
     public void query(final Consumer<Meal> visitor) {
-        //TODO: Refactor to Dependency Injection if necessary
-        ObjectSerializer.INSTANCE.readAllObjects(ObjectSerializer.getFileToSaveAs(toString())).stream().map(SerializedMeal.class::cast).forEach(visitor);
+        synchronized (LOCK) {
+            //TODO: Refactor to Dependency Injection if necessary
+            ObjectSerializer.INSTANCE.readAllObjects(ObjectSerializer.getFileToSaveAs(toString())).stream().map(SerializedMeal.class::cast).forEach(visitor);
+        }
     }
 
     @Override
@@ -76,7 +81,7 @@ final class PersistToFileMuncher implements Storable<Meal> {
 
             @Override
             public void query(final Consumer<Food> visitor) {
-
+                foods.forEach(visitor::accept);
             }
         }
 
