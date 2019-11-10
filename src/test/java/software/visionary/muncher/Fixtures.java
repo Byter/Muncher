@@ -16,7 +16,7 @@ final class Fixtures {
         return new InMemoryMeal(startTime, endTime);
     }
 
-    static Storable<Food> createEater() { return new InMemoryEater();}
+    static Storable<Food> createEater() { return new InMemoryFoods();}
 
     static Storable<Meal> createMuncher() {
         return new InMemoryMuncher(new Name("fakeMuncher"));
