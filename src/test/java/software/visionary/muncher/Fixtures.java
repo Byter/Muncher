@@ -17,11 +17,11 @@ final class Fixtures {
 
     static Storable<Food> createEater() { return new InMemoryEater();}
 
-    static Muncher createMuncher() {
+    static Storable<Meal> createMuncher() {
         return new InMemoryMuncher(new Name("fakeMuncher"));
     }
 
-    static Muncher namedMuncher(final Name name) {
+    static Storable<Meal> namedMuncher(final Name name) {
         return new InMemoryMuncher(name);
     }
 

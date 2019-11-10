@@ -21,7 +21,7 @@ final class PersistMealLogAsAFile {
     @Test
     void canSaveMealsToAFile() {
         // Given: A Muncher that persists data to disk
-        final Muncher mom = new PersistToFileMuncher(new Name("Mom"));
+        final Storable<Meal> mom = new PersistToFileMuncher(new Name("Mom"));
         // When: that person logs a Meal from 14 days ago
         final Meal first = Fixtures.createMealFromXDaysAgo(14);
         mom.store(first);
@@ -32,7 +32,7 @@ final class PersistMealLogAsAFile {
     @Test
     void canLoadMealsFromAFile() {
         // Given: A Muncher that persists data to disk
-        final Muncher mom = new PersistToFileMuncher(new Name("Mom"));
+        final Storable<Meal> mom = new PersistToFileMuncher(new Name("Mom"));
         // And: that person logs a Meal from 14 days ago
         final Meal first = Fixtures.createMealFromXDaysAgo(14);
         mom.store(first);

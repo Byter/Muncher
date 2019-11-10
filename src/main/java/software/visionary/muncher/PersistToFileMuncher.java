@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.function.Consumer;
 
-final class PersistToFileMuncher implements Muncher {
+final class PersistToFileMuncher implements Storable<Meal> {
     private final Name name;
 
     PersistToFileMuncher(final Name theMuncher) {

@@ -1,9 +1,10 @@
 package software.visionary.muncher;
 
-import software.visionary.muncher.api.Muncher;
+import software.visionary.api.Queryable;
+import software.visionary.muncher.api.Meal;
 
 final class RecollectMealsFromLastWeek implements Runnable {
-    private final Muncher user;
+    private final Queryable<Meal> user;
 
     RecollectMealsFromLastWeek(final String[] args) {
         final Name name = new Name(args[0]);

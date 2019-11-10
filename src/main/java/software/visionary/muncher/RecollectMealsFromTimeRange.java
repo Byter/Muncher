@@ -1,6 +1,7 @@
 package software.visionary.muncher;
 
-import software.visionary.muncher.api.Muncher;
+import software.visionary.api.Queryable;
+import software.visionary.muncher.api.Meal;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -11,7 +12,7 @@ import java.util.Deque;
 
 final class RecollectMealsFromTimeRange implements Runnable {
     private final String startTime, endTime;
-    private final Muncher user;
+    private final Queryable<Meal> user;
 
     RecollectMealsFromTimeRange(final String[] args) {
         final Deque<String> toProcess = new ArrayDeque<>(Arrays.asList(args));

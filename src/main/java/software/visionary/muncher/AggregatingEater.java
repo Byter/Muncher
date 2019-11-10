@@ -11,9 +11,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 final class AggregatingEater implements Storable<Food> {
-    private final Muncher muncher;
+    private final Storable<Meal> muncher;
 
-    AggregatingEater(final Muncher muncher) {
+    AggregatingEater(final Storable<Meal> muncher) {
         this.muncher = Objects.requireNonNull(muncher);
     }
 

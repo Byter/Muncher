@@ -1,7 +1,8 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.Food;
-import software.visionary.muncher.api.Muncher;
+import software.visionary.muncher.api.Meal;
 import software.visionary.muncher.api.MutableMeal;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public enum InteractiveLogMealMicroservice {
     }
 
     private static void busyWait(final Name theMuncher, final Scanner in) {
-        final Muncher user = new PersistToFileMuncher(theMuncher);
+        final Storable<Meal> user = new PersistToFileMuncher(theMuncher);
         do {
             printMenu();
             switch (in.nextLine()) {
@@ -44,10 +45,10 @@ public enum InteractiveLogMealMicroservice {
     }
 
     private static class LogAMeal implements Runnable {
-        private final Muncher theMuncher;
+        private final Storable<Meal> theMuncher;
         private final Scanner scanner;
 
-        LogAMeal(final Muncher user, final Scanner in) {
+        LogAMeal(final Storable<Meal> user, final Scanner in) {
             theMuncher = Objects.requireNonNull(user);
             scanner = Objects.requireNonNull(in);
         }

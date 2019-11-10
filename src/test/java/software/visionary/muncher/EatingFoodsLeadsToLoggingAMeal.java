@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import software.visionary.api.Storable;
 import software.visionary.muncher.api.Food;
 import software.visionary.muncher.api.Meal;
-import software.visionary.muncher.api.Muncher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ final class EatingFoodsLeadsToLoggingAMeal {
     @Test
     void consumingFoodResultsInCreationOfAMeal() {
         // Given: the existence of a muncher
-        final Muncher muncher = Fixtures.createMuncher();
+        final Storable<Meal> muncher = Fixtures.createMuncher();
         final Storable<Food> nick = new AggregatingEater(muncher);
         // And: Some food to be eaten
         final Food boneBroth = Fixtures.createBoneBroth();

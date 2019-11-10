@@ -1,7 +1,8 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.Food;
-import software.visionary.muncher.api.Muncher;
+import software.visionary.muncher.api.Meal;
 import software.visionary.muncher.api.MutableMeal;
 
 import java.time.LocalDateTime;
@@ -40,7 +41,7 @@ public enum FunctionalLogMealMicroservice {
         @Override
         public void run() {
             final Name theMuncher = new Name(Objects.requireNonNull(args.pop()));
-            final Muncher user = new PersistToFileMuncher(theMuncher);
+            final Storable<Meal> user = new PersistToFileMuncher(theMuncher);
             final LocalDateTime startedAt = LocalDateTime.parse(args.pop(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             final LocalDateTime endedAt = LocalDateTime.parse(args.pop(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             final MutableMeal toLog = new InMemoryMeal(startedAt.toInstant(ZoneOffset.UTC), endedAt.toInstant(ZoneOffset.UTC));

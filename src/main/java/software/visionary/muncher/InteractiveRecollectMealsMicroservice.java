@@ -1,7 +1,5 @@
 package software.visionary.muncher;
 
-import software.visionary.muncher.api.Muncher;
-
 import java.util.Scanner;
 
 public enum InteractiveRecollectMealsMicroservice {
@@ -16,7 +14,6 @@ public enum InteractiveRecollectMealsMicroservice {
     }
 
     private static void busyWait(final Name theMuncher, final Scanner in) {
-        final Muncher user = new PersistToFileMuncher(theMuncher);
         do {
             printMenu();
             switch (in.nextLine()) {

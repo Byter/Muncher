@@ -1,8 +1,8 @@
 package software.visionary.muncher;
 
 import org.junit.jupiter.api.Test;
+import software.visionary.api.Storable;
 import software.visionary.muncher.api.Meal;
-import software.visionary.muncher.api.Muncher;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,7 +11,7 @@ final class QueryForMealsForATimeRange {
     @Test
     void canQueryMuncherForMealsWithinTheLastWeek() {
         // Given: A Muncher
-        final Muncher mom = Fixtures.createMuncher();
+        final Storable<Meal> mom = Fixtures.createMuncher();
         // And: that person logs a Meal from 14 days ago
         final Meal first = Fixtures.createMealFromXDaysAgo(14);
         mom.store(first);
@@ -41,7 +41,7 @@ final class QueryForMealsForATimeRange {
     @Test
     void canQueryMuncherForMealsTwoWeeksAgo() {
         // Given: A Muncher
-        final Muncher mom = Fixtures.createMuncher();
+        final Storable<Meal> mom = Fixtures.createMuncher();
         // And: that person logs a Meal from 14 days ago
         final Meal first = Fixtures.createMealFromXDaysAgo(14);
         mom.store(first);
