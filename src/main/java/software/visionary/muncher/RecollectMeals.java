@@ -1,5 +1,7 @@
 package software.visionary.muncher;
 
+import software.visionary.api.Mainable;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 

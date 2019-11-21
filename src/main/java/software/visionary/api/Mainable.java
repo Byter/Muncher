@@ -1,4 +1,4 @@
-package software.visionary.muncher;
+package software.visionary.api;
 
 import java.io.InputStream;
 import java.io.OutputStream;
