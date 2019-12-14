@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.Objects;
 
 public abstract class Mainable implements Runnable {
     private final Deque<String> args;
@@ -13,9 +14,9 @@ public abstract class Mainable implements Runnable {
     private final OutputStream output;
 
     public Mainable(final String[] args, final InputStream in, final OutputStream out) {
-        this.args = new ArrayDeque<>(Arrays.asList(args));
-        input = in;
-        output = out;
+        this.args = new ArrayDeque<>(Arrays.asList(args == null ? new String[0] : args));
+        input = Objects.requireNonNull(in);
+        output = Objects.requireNonNull(out);
     }
 
     protected Deque<String> getArgs() { return args; }
@@ -32,6 +33,7 @@ public abstract class Mainable implements Runnable {
     public final void run() {
         if (getArgs().size() == 0 || getArgs().contains("help")) {
             printHelp();
+            return;
         }
         execute();
     }
