@@ -26,6 +26,16 @@ final class Fixtures {
         return new InMemoryMuncher(name);
     }
 
+    static Meal createMealFromXHoursAgo(final int hours) {
+        final Instant startTime = Instant.now().minus(hours, ChronoUnit.HOURS);
+        final Instant endTime = hours <= 1 ? Instant.now() : startTime.plus(1, ChronoUnit.HOURS);
+        return new InMemoryMeal(startTime, endTime);
+    }
+
+    static Food createFood(final String food) {
+        return new InMemoryFood(new Name(food));
+    }
+
     private static final class BoneBroth implements Food {
 
     }
