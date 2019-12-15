@@ -1,8 +1,8 @@
 package software.visionary.muncher.api;
 
 import software.visionary.api.Event;
-import software.visionary.api.Storable;
+import software.visionary.api.Queryable;
 
 public interface Meal extends Event {
-    Storable<Food> getFoods();
+    Queryable<Food> getFoods();
 }

@@ -2,12 +2,12 @@ package software.visionary.muncher;
 
 import software.visionary.api.EventsWithinTimeRange;
 import software.visionary.api.Storable;
-import software.visionary.muncher.api.*;
+import software.visionary.muncher.api.Food;
+import software.visionary.muncher.api.Meal;
+import software.visionary.muncher.api.MutableMeal;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -29,8 +29,6 @@ final class AggregatingEater implements Storable<Food> {
 
     @Override
     public void query(final Consumer<Food> visitor) {
-        final List<Storable<Food>> foods = new ArrayList<>();
-        muncher.query(m -> foods.add(m.getFoods()));
-        foods.forEach(theFoods -> theFoods.query(visitor));
+        muncher.query(m -> m.getFoods().query(visitor));
     }
 }
