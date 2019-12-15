@@ -1,8 +1,9 @@
 package software.visionary.api;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -22,8 +23,10 @@ public abstract class Mainable implements Runnable {
     protected Deque<String> getArgs() { return args; }
 
     protected void writeToOutput(final String toWrite) {
-        try(final PrintStream ps = new PrintStream(output)) {
-            ps.println(toWrite);
+        try {
+            output.write(String.format("%s%n",toWrite).getBytes(StandardCharsets.UTF_8));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

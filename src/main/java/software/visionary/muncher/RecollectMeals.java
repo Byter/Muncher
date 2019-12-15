@@ -1,9 +1,15 @@
 package software.visionary.muncher;
 
-import software.visionary.api.Mainable;
+import software.visionary.api.*;
+import software.visionary.muncher.api.Meal;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.function.Consumer;
 
 final class RecollectMeals extends Mainable {
 
@@ -23,8 +29,27 @@ final class RecollectMeals extends Mainable {
 
     @Override
     public void execute() {
-        final Runnable toRun = (getArgs().size() == 1) ? new RecollectMealsFromLastWeek(getArgs().toArray(new String[0])) : new RecollectMealsFromTimeRange(getArgs().toArray(new String[0]));
+        final Runnable toRun = getToRun();
         toRun.run();
+    }
+
+    private Runnable getToRun() {
+        final Name name = new Name(getArgs().pop());
+        final Queryable<Meal> user = new PersistToFileMuncher(name);
+        final Consumer<Meal> query = getQuery();
+        return () -> user.query(query.andThen(meal -> writeToOutput(meal.toString())));
+    }
+
+    private Consumer<Meal> getQuery() {
+        if (getArgs().size() == 0) {
+                return new EventsFromOneWeekAgoToNow<>() {};
+        } else {
+            final String startTime = getArgs().pop();
+            final String endTime = getArgs().pop();
+            final Instant startedAt = LocalDateTime.parse(startTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toInstant(ZoneOffset.UTC);
+            final Instant endedAt = LocalDateTime.parse(endTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toInstant(ZoneOffset.UTC);
+            return new EventsWithinTimeRange<>(startedAt, endedAt) {};
+        }
     }
 
     public static void main(final String[] args) {
