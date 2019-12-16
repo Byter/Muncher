@@ -23,6 +23,16 @@ public abstract class EventsFromOneWeekAgoToNow<T extends Event> implements Cons
         }
     }
 
+    @Override
+    public Consumer<T> andThen(final Consumer<? super T> after) {
+        return (thing -> {
+            accept(thing);
+            if (found.contains(thing)) {
+                after.accept(thing);
+            }
+        });
+    }
+
     public final boolean contains(final T sought) {
         return found.contains(sought);
     }
