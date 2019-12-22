@@ -44,7 +44,7 @@ final class RecollectMealsTest {
         final File file = new File(muncher);
         Assertions.assertTrue(file.exists());
         Assertions.assertTrue(file.length() > 0);
-        file.deleteOnExit();
+        file.delete();
         System.setOut(old);
     }
 
@@ -69,7 +69,7 @@ final class RecollectMealsTest {
         final File file = new File(muncher);
         Assertions.assertTrue(file.exists());
         Assertions.assertTrue(file.length() > 0);
-        file.deleteOnExit();
+        file.delete();
         System.setOut(old);
     }
 }
