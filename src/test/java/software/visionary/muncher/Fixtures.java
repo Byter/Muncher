@@ -38,6 +38,10 @@ final class Fixtures {
 
     private static final class BoneBroth implements Food {
 
+        @Override
+        public Name getName() {
+            return new Name(BoneBroth.class.getName());
+        }
     }
 
     static Food createBoneBroth() {

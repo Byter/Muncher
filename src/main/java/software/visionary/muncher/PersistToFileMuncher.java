@@ -53,11 +53,6 @@ final class PersistToFileMuncher implements Storable<Meal> {
             public Name getName() {
                 return new Name(food);
             }
-
-            @Override
-            public String toString() {
-                return getName().toString();
-            }
         }
 
         private static final class SerializedFoods implements Serializable, Storable<Food> {
@@ -70,7 +65,7 @@ final class PersistToFileMuncher implements Storable<Meal> {
             @Override
             public String toString() {
                 final StringBuilder builder = new StringBuilder();
-                foods.forEach(food -> builder.append(String.format("%n%s%n", food)));
+                foods.forEach(food -> builder.append(String.format("%n%s%n", food.getName())));
                 return builder.toString();
             }
 
