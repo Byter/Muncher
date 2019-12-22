@@ -26,7 +26,7 @@ public abstract class EventsWithinTimeRange<T extends Event> implements Consumer
     public Consumer<T> andThen(final Consumer<? super T> after) {
         return (thing -> {
             accept(thing);
-            if (found.contains(thing)) {
+            if (contains(thing)) {
                 after.accept(thing);
             }
         });

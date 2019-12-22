@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 final class EventsFromOneWeekAgoToNowTest {
     private static class TooLongAgo implements Event {
@@ -65,5 +67,27 @@ final class EventsFromOneWeekAgoToNowTest {
         final Event inRange = new InRange();
         toTest.accept(inRange);
         Assertions.assertTrue(toTest.contains(inRange));
+    }
+
+    @Test
+    void andThenPassesToGivenConsumer() {
+        final AtomicInteger timesInvoked = new AtomicInteger(0);
+        final Consumer counter = (Consumer<Object>) o -> timesInvoked.getAndAdd(1);
+        final EventsFromOneWeekAgoToNow base = new EventsFromOneWeekAgoToNow() {
+            @Override
+            public void accept(final Object o) {
+                if (o instanceof Event) {
+                    super.accept(((Event) o));
+                }
+            }
+        };
+        final Consumer<Object> toTest = base.andThen(counter);
+        final Event before = new TooLongAgo();
+        toTest.accept(before);
+        final Event after = new NotYet();
+        toTest.accept(after);
+        final Event inRange = new InRange();
+        toTest.accept(inRange);
+        Assertions.assertEquals(1, timesInvoked.get());
     }
 }

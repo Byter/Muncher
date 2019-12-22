@@ -3,6 +3,7 @@ package software.visionary.api;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Deque;
@@ -53,6 +54,20 @@ final class MainableTest {
         final Mainable toTest = new TestDouble(new String[0], System.in, out);
         toTest.writeToOutput(toWrite);
         assertEquals(String.format("%s%n", toWrite), out.toString());
+    }
+
+    @Test
+    void throwsRuntimeExceptionWhenWritingToExceptionalOutputStream() throws IOException {
+        final String toWrite = UUID.randomUUID().toString();
+        final OutputStream out = new OutputStream() {
+            @Override
+            public void write(final int i) throws IOException {
+                throw new IOException("except");
+            }
+        };
+        out.close();
+        final Mainable toTest = new TestDouble(new String[0], System.in, out);
+        assertThrows(RuntimeException.class, () ->toTest.writeToOutput(toWrite));
     }
 
     @Test
